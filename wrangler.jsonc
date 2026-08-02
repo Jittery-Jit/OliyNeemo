@@ -1,0 +1,47 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "neemo",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-07-29",
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS",
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"migrations_dir": "drizzle",
+		},
+	],
+	"r2_buckets": [
+		{
+			"binding": "ITEM_IMAGES",
+		},
+	],
+	"ratelimits": [
+		{
+			"name": "PUBLIC_RATE_LIMITER",
+			"namespace_id": "73194261",
+			"simple": {
+				"limit": 20,
+				"period": 60,
+			},
+		},
+		{
+			"name": "GATEWAY_RATE_LIMITER",
+			"namespace_id": "73194262",
+			"simple": {
+				"limit": 600,
+				"period": 60,
+			},
+		},
+	],
+	"secrets": {
+		"required": ["SESSION_SECRET"],
+	},
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1,
+	},
+}

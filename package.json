@@ -1,0 +1,75 @@
+{
+	"name": "neemo",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@10.28.1",
+	"engines": {
+		"node": ">=22.13.0"
+	},
+	"pnpm": {
+		"auditConfig": {
+			"ignoreCves": [
+				"CVE-2026-14257"
+			]
+		},
+		"overrides": {
+			"brace-expansion@1.1.16": "1.1.17",
+			"brace-expansion@2.1.2": "2.1.3",
+			"brace-expansion@5.0.7": "5.0.8",
+			"esbuild@<=0.24.2": "0.25.12",
+			"postcss@<=8.5.17": "8.5.22",
+			"sharp@<0.35.0": "0.35.3"
+		}
+	},
+	"scripts": {
+		"dev": "next dev --hostname 0.0.0.0 --port 43761",
+		"mock:scanner": "node --experimental-strip-types scripts/mock-scanner.ts",
+		"build": "next build",
+		"build:worker": "opennextjs-cloudflare build",
+		"preview": "pnpm build:worker && opennextjs-cloudflare preview --port 43761",
+		"deploy:cloudflare": "pnpm check && pnpm db:migrate:remote && opennextjs-cloudflare deploy",
+		"deploy:dry-run": "pnpm build:worker && wrangler deploy --dry-run",
+		"cf:typegen": "wrangler types --env-interface CloudflareEnv",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate:local": "wrangler d1 migrations apply DB --local",
+		"db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+		"typecheck": "tsc --noEmit && pnpm --filter neemo-local-gateway check",
+		"test": "node --experimental-strip-types --test tests/*.test.mjs",
+		"verify:worker": "node --experimental-strip-types scripts/verify-worker.ts",
+		"verify:deployment": "node --experimental-strip-types scripts/verify-deployment.ts",
+		"format": "prettier . --write --cache",
+		"format:check": "prettier . --check --cache",
+		"lint": "eslint .",
+		"security:audit": "pnpm audit",
+		"check": "pnpm typecheck && pnpm format:check && pnpm lint && pnpm test && pnpm security:audit && pnpm build:worker && pnpm verify:worker"
+	},
+	"dependencies": {
+		"@opennextjs/cloudflare": "1.20.2",
+		"drizzle-orm": "0.45.2",
+		"jose": "6.2.3",
+		"mqtt": "5.15.2",
+		"next": "16.2.12",
+		"react": "19.2.8",
+		"react-dom": "19.2.8"
+	},
+	"devDependencies": {
+		"@eslint/js": "9.39.4",
+		"@tailwindcss/postcss": "4.2.1",
+		"@types/node": "22.19.19",
+		"@types/react": "19.2.14",
+		"@types/react-dom": "19.2.3",
+		"drizzle-kit": "0.31.10",
+		"eslint": "9.39.4",
+		"eslint-config-next": "16.2.12",
+		"eslint-plugin-functional": "10.0.0",
+		"prettier": "3.9.6",
+		"prettier-plugin-organize-imports": "4.3.0",
+		"stylelint": "16.23.1",
+		"stylelint-prettier": "5.0.3",
+		"tailwindcss": "4.2.1",
+		"typescript": "5.9.3",
+		"typescript-eslint": "8.65.0",
+		"wrangler": "4.115.0"
+	}
+}

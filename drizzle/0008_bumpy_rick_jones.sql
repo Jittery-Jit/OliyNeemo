@@ -1,0 +1,1 @@
+ALTER TABLE `items` ADD `image_key` text;

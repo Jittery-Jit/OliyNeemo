@@ -1,0 +1,22 @@
+packages:
+  - gateway
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - '@next/*'
+  - '@typescript-eslint/*'
+  - brace-expansion
+  - eslint-config-next
+  - miniflare
+  - next
+  - react
+  - react-dom
+  - react-server-dom-webpack
+  - typescript-eslint
+  - workerd
+  - wrangler
+minimumReleaseAgeIgnoreMissingTime: true

@@ -1,0 +1,24 @@
+{
+	"name": "neemo-local-gateway",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Mac- and Windows-compatible MQTT bridge for Neemo Hubs",
+	"scripts": {
+		"start": "node --experimental-strip-types src/index.ts",
+		"connect": "node --experimental-strip-types src/index.ts --pair",
+		"check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"aedes": "1.1.1",
+		"mqtt": "5.14.1"
+	},
+	"devDependencies": {
+		"@types/node": "22.19.19",
+		"typescript": "5.9.3"
+	},
+	"packageManager": "pnpm@10.28.1",
+	"engines": {
+		"node": ">=22.13.0"
+	}
+}
